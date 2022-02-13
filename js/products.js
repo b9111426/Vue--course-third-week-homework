@@ -1,5 +1,7 @@
 import { createApp } from 'https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.30/vue.esm-browser.min.js'
 
+
+let errorWarnning = {}
 let productModel = {}
 let deleteModel = {}
 
@@ -24,8 +26,14 @@ const App = {
         })
         .catch(err => {
           console.dir(err.response)
-          alert('登入失敗')
-          window.location = 'https://b9111426.github.io/Vue--course-second-week-homework'
+          errorWarnning.show()
+
+          setTimeout(() => {
+            errorWarnning.hide()
+            window.location = './index.html'
+          }, 2000)
+
+
         })
     },
     getProducts() {
@@ -33,7 +41,6 @@ const App = {
       axios.get(url)
         .then((res) => {
           this.products = res.data.products
-          console.log(this.products)
         })
         .catch((err) => {
           alert(err.data.message)
@@ -57,6 +64,7 @@ const App = {
       }
     },
     updateProduct() {
+
       let url = `${this.apiUrl}/api/${this.apiPath}/admin/product`
       let method = 'post'
       const productData = { data: this.tempProduct }
@@ -65,7 +73,6 @@ const App = {
         url = `${this.apiUrl}/api/${this.apiPath}/admin/product/${this.tempProduct.id}`
         method = 'put'
       }
-
       axios[method](url, productData)
         .then((res) => {
           this.getProducts()
@@ -79,7 +86,6 @@ const App = {
           this.getProducts()
           deleteModel.hide()
         })
-
     },
   },
   mounted() {
@@ -87,6 +93,7 @@ const App = {
     axios.defaults.headers.common.Authorization = token
     this.checkLogin()
 
+    errorWarnning = new bootstrap.Modal(document.getElementById('errorWarnning'), { keyboard: false })
     productModel = new bootstrap.Modal(document.getElementById('productModal'), { keyboard: false })
     deleteModel = new bootstrap.Modal(document.getElementById('delProductModal'), { keyboard: false })
   }

@@ -1,10 +1,15 @@
+import { createApp } from 'https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.30/vue.esm-browser.min.js'
+
+let errorWarnning = {}
+
 const App = {
   data() {
     return {
       user: {
         username: '',
         password: ''
-      }
+      },
+      message: ''
     }
   },
   methods: {
@@ -18,9 +23,17 @@ const App = {
         })
         .catch(err => {
           console.dir(err)
-          alert(err.data.message)
+          this.message = err.data.message
+          errorWarnning.show()
+
+          setTimeout(() => {
+            errorWarnning.hide()
+          }, 2000)
         })
     }
+  },
+  mounted() {
+    errorWarnning = new bootstrap.Modal(document.getElementById('errorWarnning'), { keyboard: false })
   }
 }
-Vue.createApp(App).mount('#app')
+createApp(App).mount('#app')
