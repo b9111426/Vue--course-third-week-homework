@@ -5,7 +5,7 @@ let errorWarnning = {}
 let productModel = {}
 let deleteModel = {}
 
-const App = {
+const App = createApp({
   data() {
     return {
       apiUrl: 'https://vue3-course-api.hexschool.io/v2',
@@ -97,5 +97,5 @@ const App = {
     productModel = new bootstrap.Modal(document.getElementById('productModal'), { keyboard: false })
     deleteModel = new bootstrap.Modal(document.getElementById('delProductModal'), { keyboard: false })
   }
-}
-createApp(App).mount('#app')
+})
+App.mount('#app')

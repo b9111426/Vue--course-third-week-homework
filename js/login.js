@@ -2,7 +2,7 @@ import { createApp } from 'https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.30/vue
 
 let errorWarnning = {}
 
-const App = {
+const App = createApp({
   data() {
     return {
       user: {
@@ -35,5 +35,5 @@ const App = {
   mounted() {
     errorWarnning = new bootstrap.Modal(document.getElementById('errorWarnning'), { keyboard: false })
   }
-}
-createApp(App).mount('#app')
+})
+App.mount('#app')
