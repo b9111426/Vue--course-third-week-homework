@@ -54,7 +54,7 @@ const App = createApp({
         productModel.show()
         this.isNew = true
       } else if (status === 'edit') {
-        this.tempProduct = { ...product }
+        this.tempProduct = { imagesUrl: [], ...product }
         productModel.show()
         this.isNew = false
       }
